@@ -10,7 +10,7 @@ function Search({ items, setFilteredItems }) {
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchInput(value);
-    const results = items.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()) || item.description.toLowerCase().includes(value.toLowerCase()));
+    const results = items.filter((item) => item.description.toLowerCase().includes(value.toLowerCase()) || item.description.toLowerCase().includes(value.toLowerCase()));
     setFilteredItems(results);
   };
 
@@ -43,7 +43,6 @@ function Search({ items, setFilteredItems }) {
 Search.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     description: PropTypes.string,
-    image_url: PropTypes.string,
   })).isRequired,
   setFilteredItems: PropTypes.func.isRequired,
 };

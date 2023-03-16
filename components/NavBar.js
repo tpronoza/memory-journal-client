@@ -2,16 +2,17 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
   Button,
+  NavDropdown,
 } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+// import { useAuth } from '../utils/context/authContext';
 
 export default function NavBar() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -25,21 +26,30 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/item/new">
-              <Nav.Link>Add New Item</Nav.Link>
-            </Link>
-            <Link passHref href="/items">
-              <Nav.Link>Items</Nav.Link>
-            </Link>
-            <Link passHref href="/list/new">
-              <Nav.Link>Add New List</Nav.Link>
-            </Link>
-            <Link passHref href={`/User/${user.id}`}>
-              <Nav.Link>My Lists</Nav.Link>
-            </Link>
-            <Link passHref href="/inspirationarticles">
-              <Nav.Link>Inspiration</Nav.Link>
-            </Link>
+            <NavDropdown title="Inspiration Articles" id="basic-nav-dropdown">
+              <Link passHref href="/inspirationarticles">
+                <NavDropdown.Item>View All</NavDropdown.Item>
+              </Link>
+              <Link passHref href="/inspirationarticles/new">
+                <NavDropdown.Item>Add A New Article</NavDropdown.Item>
+              </Link>
+            </NavDropdown>
+            <NavDropdown title="Lists" id="basic-nav-dropdown">
+              <Link passHref href="/lists">
+                <NavDropdown.Item>View All</NavDropdown.Item>
+              </Link>
+              <Link passHref href="/lists/new">
+                <NavDropdown.Item>Add A New List</NavDropdown.Item>
+              </Link>
+            </NavDropdown>
+            <NavDropdown title="Items" id="basic-nav-dropdown">
+              <Link passHref href="/items">
+                <NavDropdown.Item>View All</NavDropdown.Item>
+              </Link>
+              <Link passHref href="/items/new">
+                <NavDropdown.Item>Add A New Item</NavDropdown.Item>
+              </Link>
+            </NavDropdown>
             <Button variant="danger" onClick={signOut}>
               Sign Out
             </Button>

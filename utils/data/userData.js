@@ -21,7 +21,7 @@ const getSingleUser = (userId, uid = '') => new Promise((resolve, reject) => {
 });
 
 const getUsers = (uid = '') => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/uses`, {
+  fetch(`${clientCredentials.databaseURL}/users`, {
     method: 'GET',
     headers: {
       Authorization: uid,
@@ -38,7 +38,26 @@ const getUsers = (uid = '') => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const updateUser = (userObj, userId) => new Promise((resolve, reject) => {
+  const newUserObj = {
+    first_name: userObj.firstName,
+    last_name: userObj.lastName,
+    bio: userObj.bio,
+    profile_image_url: userObj.profileImageUrl,
+    email: userObj.email,
+    active: true,
+  };
+  fetch(`${clientCredentials.databaseURL}/users/${userId}`, {
+    method: 'PUT',
+    body: JSON.stringify(newUserObj),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(resolve)
+    .catch(reject);
+});
+
 export {
   getSingleUser,
   getUsers,
+  updateUser,
 };

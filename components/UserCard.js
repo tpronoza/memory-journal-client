@@ -9,7 +9,7 @@ function UserCard({ userObj }) {
     <Card className="card" style={{ width: '20rem', margin: '10px' }}>
       <Card.Body>
         <Card.Title>{userObj.first_name + userObj.last_name}</Card.Title>
-        <Link href={`/user/${userObj.id}`} passHref>
+        <Link href={`/users/${userObj.id}`} passHref>
           <Button className="custom-btn">Collection</Button>
         </Link>
       </Card.Body>

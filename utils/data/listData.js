@@ -66,8 +66,8 @@ const updateList = (list) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const deleteList = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/lists/${id}`, {
+const deleteList = (listId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/lists/${listId}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   })

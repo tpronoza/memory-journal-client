@@ -11,6 +11,13 @@ const getInspirationArticles = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getAllInspirationArticles = () => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/inspirationarticles`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleInspirationArticle = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/inspirationarticles/${id}`)
     .then((response) => response.json())
@@ -29,39 +36,29 @@ const getSingleInspirationArticle = (id) => new Promise((resolve, reject) => {
 const createInspirationArticle = (article) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/inspirationarticles`, {
     method: 'POST',
-    body: JSON.stringify({
-      title: article.title,
-      description: article.description,
-      item_image: article.itemImage,
-      user_id: article.userId,
-    }),
     headers: {
       'content-type': 'application/json',
     },
+    body: JSON.stringify(article),
   })
     .then((response) => resolve(response))
     .catch((error) => reject(error));
 });
 
-const updateInspirationArticle = (inspirationArticle) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/inspirationarticles/${inspirationArticle.id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      title: inspirationArticle.title,
-      description: inspirationArticle.description,
-      item_image: inspirationArticle.itemImage,
-      user_id: inspirationArticle.user.id,
-    }),
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
-    .then((response) => resolve(response))
-    .catch((error) => reject(error));
-});
-
-const deleteInspirationArticle = (id) => new Promise((resolve, reject) => {
+const updateInspirationArticle = (inspirationArticle, id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/inspirationarticles/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(inspirationArticle),
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const deleteInspirationArticle = (inspirationArticle) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/inspirationarticles/${inspirationArticle}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -75,4 +72,5 @@ export {
   createInspirationArticle,
   updateInspirationArticle,
   deleteInspirationArticle,
+  getAllInspirationArticles,
 };
