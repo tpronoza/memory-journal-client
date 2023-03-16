@@ -28,11 +28,7 @@ const getSingleItem = (id) => new Promise((resolve, reject) => {
 const createItem = (item) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/items`, {
     method: 'POST',
-    body: JSON.stringify({
-      description: item.description,
-      image_url: item.imageUrl,
-      user_id: item.userId,
-    }),
+    body: JSON.stringify(item),
     headers: {
       'content-type': 'application/json',
     },
@@ -44,16 +40,12 @@ const createItem = (item) => new Promise((resolve, reject) => {
 const updateItem = (item) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/items/${item.id}`, {
     method: 'PUT',
-    body: JSON.stringify({
-      description: item.description,
-      image_url: item.imageUrl,
-      user_id: item.user.id,
-    }),
     headers: {
       'content-type': 'application/json',
     },
+    body: JSON.stringify(item),
   })
-    .then((response) => resolve(response))
+    .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
