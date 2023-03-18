@@ -1,48 +1,72 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Button, Table } from 'react-bootstrap';
-import { deleteItem, getItems } from '../../utils/data/itemData';
-import TagForm from '../../components/forms/ItemForm';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Button } from 'react-bootstrap';
+import { getItems } from '../../utils/data/itemData';
+import ItemCard from '../../components/ItemCard';
 
 function ItemsPage() {
   const [items, setItems] = useState([]);
-
-  const getAllItems = () => {
-    getItems().then(setItems);
+  const router = useRouter();
+  const getContent = () => {
+    getItems().then((data) => setItems(data));
   };
 
   useEffect(() => {
-    getAllItems();
+    getContent();
   }, []);
-
-  const refresh = () => getAllItems();
-
+  // console.warn(items);
   return (
-    <>
-      <TagForm refresh={refresh} />
-      <h2>Items</h2>
-      <Table striped bordered hover>
-        <tbody>
-          {
-            items?.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <Link href={`/items/edit/${item.id}`} passHref>
-                    <Button size="sm" variant="dark">
-                      EDIT
-                    </Button>
-                  </Link>
-                  <Button size="sm" variant="danger" onClick={() => deleteItem(item.id).then(() => getAllItems())}>Delete</Button>
-                </td>
-                <td>{item.description}</td>
-                <td>{item.image_url}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </Table>
-    </>
+    <article className="articles">
+      <h1>Items</h1>
+      <Button
+        onClick={() => {
+          router.push('/items/new');
+        }}
+      >
+        Post an Item
+      </Button>
+      <div className="d-flex flex-wrap">
+        {items.map((item) => (
+          <section key={`item--${item.id}`} className="items">
+            <ItemCard
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              description={item.description}
+              onUpdate={getContent}
+            />
+          </section>
+        ))}
+      </div>
+    </article>
   );
 }
+
+//   const [items, setItems] = useState([]);
+//   const [filteredItems, setFilteredItems] = useState([]);
+
+//   const getAllTheItems = () => {
+//     getItems().then((itemArray) => {
+//       setItems(itemArray);
+//       setFilteredItems(itemArray);
+//     });
+//   };
+
+//   useEffect(() => {
+//     getAllTheItems();
+//   }, []);
+
+//   return (
+//     <div>
+//       {/* <h3>New Day is a New Beginning</h3> */}
+//       <Search items={items} setFilteredItems={setFilteredItems} />
+//       <section className="all-lists-container">
+//         {filteredItems?.map((item) => (
+//           <ItemCard key={item.id} itemObj={item} />
+//         ))}
+//       </section>
+//     </div>
+//   );
+// }
 
 export default ItemsPage;

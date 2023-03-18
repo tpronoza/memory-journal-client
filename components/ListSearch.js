@@ -8,7 +8,7 @@ function ListSearch({ lists, setFilteredLists }) {
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchInput(value);
-    const results = lists.filter((list) => list.title.toLowerCase().includes(value.toLowerCase()) || list.content.toLowerCase().includes(value.toLowerCase()));
+    const results = lists.filter((list) => list.name.toLowerCase().includes(value.toLowerCase()) || list.content.toLowerCase().includes(value.toLowerCase()));
     setFilteredLists(results);
   };
 
@@ -22,7 +22,7 @@ function ListSearch({ lists, setFilteredLists }) {
 ListSearch.propTypes = {
   lists: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string,
+      name: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,
     }),

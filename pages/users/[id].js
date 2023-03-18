@@ -27,12 +27,12 @@ export default function UserAdventurer() {
     getThisUser();
   }, [id]);
 
-  console.warn(fUser.user.id);
+  // console.warn(fUser.user.id);
 
   return (
     <div>
       {/* <div className="d-flex flex-column">
-        <img src={user.imageUrl} alt={user.lastName} />
+        <img src={user.image} alt={user.lastName} />
       </div> */}
       <div className="user-title">
         <h2>

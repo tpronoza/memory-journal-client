@@ -8,53 +8,44 @@ import Link from 'next/link';
 // import { useAuth } from '../utils/context/authContext';
 import { deleteList } from '../utils/data/listData';
 
-// function ListCard({ listObj, onUpdate }) {
-//   const { user } = useAuth();
-
-//   const deleteThisList = () => {
-//     if (window.confirm(`Delete ${listObj.title}`)) {
-//       deleteList(listObj?.id).then(() => onUpdate());
-//     }
-//   };
-
 function ListCard({
-  title,
+  name,
   description,
-  imageUrl,
-  // categories,
+  image,
+  items,
   id,
   onUpdate,
 }) {
-  const deleteThisList = () => {
-    if (window.confirm(`Delete ${title}?`)) {
+  const deleteThisItem = () => {
+    if (window.confirm(`Delete ${name}?`)) {
       deleteList(id).then(() => onUpdate());
     }
   };
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={imageUrl} alt={title} style={{ height: '400px' }} />
+      <Card.Img variant="top" src={image} alt={name} style={{ height: '400px' }} />
       <Card.Body>
-        <Card.Title> {title}</Card.Title>
+        <Card.Title> {name}</Card.Title>
         <ul className="list-group">
-          <li className="list-group-item">Title: {title}</li>
+          <li className="list-group-item">Title: {name}</li>
           <li className="list-group-item">Description: {description}</li>
-          {/* <li className="list-group-item">Category: {categories?.map((taco) => (
-            <p>{`${taco.label}`} </p>
+          <li className="list-group-item">Items: {items?.map((taco) => (
+            <p>{`${taco.name}`} </p>
           ))}
-          </li> */}
+          </li>
         </ul>
         <Link href={`/lists/${id}`} passHref>
           <Button size="sm" variant="dark" className="m-2">
-            VIEW
+            View
           </Button>
         </Link>
         <Link href={`/lists/edit/${id}`} passHref>
           <Button size="sm" variant="dark">
-            EDIT
+            Edit
           </Button>
         </Link>
-        <Button size="sm" variant="danger" onClick={deleteThisList} className="m-2">
-          DELETE
+        <Button size="sm" variant="danger" onClick={deleteThisItem} className="m-2">
+          Delete
         </Button>
       </Card.Body>
     </Card>
@@ -62,12 +53,12 @@ function ListCard({
 }
 
 ListCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  // categories: PropTypes.string.isRequired,
-  // items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
@@ -86,7 +77,7 @@ export default ListCard;
 //   const { user } = useAuth();
 
 //   const deleteThisList = () => {
-//     if (window.confirm(`Delete ${listObj.title}`)) {
+//     if (window.confirm(`Delete ${listObj.name}`)) {
 //       deleteList(listObj?.id).then(() => onUpdate());
 //     }
 //   };
@@ -94,10 +85,10 @@ export default ListCard;
 //   return (
 //     <Card className="card" style={{ width: '20rem', margin: '10px' }}>
 //       {/* <Link href=" " passHref>
-//         <Card.Img variant="top" src={listObj.image} alt={listObj.title} style={{ height: '400px' }} />
+//         <Card.Img variant="top" src={listObj.image} alt={listObj.name} style={{ height: '400px' }} />
 //       </Link> */}
 //       <Card.Body>
-//         <Card.Title>{listObj?.description}</Card.Title>
+//         <Card.name>{listObj?.description}</Card.name>
 //         <p>{listObj.user.id}</p>
 //         {listObj.user.uid === user.uid ? (
 //           <>
@@ -124,9 +115,9 @@ export default ListCard;
 
 // ListCard.propTypes = {
 //   listObj: PropTypes.shape({
-//     title: PropTypes.string,
+//     name: PropTypes.string,
 //     description: PropTypes.string,
-//     image_url: PropTypes.string,
+//     image: PropTypes.string,
 //     id: PropTypes.number,
 //     categories: PropTypes.shape({
 //       id: PropTypes.number,

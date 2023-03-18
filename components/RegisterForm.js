@@ -7,7 +7,7 @@ import { registerUser } from '../utils/auth'; // Update with path to registerUse
 const initialState = {
   firstName: '',
   lastName: '',
-  imageUrl: '',
+  image: '',
 };
 
 function RegisterForm({ user, updateUser }) {
@@ -36,7 +36,7 @@ function RegisterForm({ user, updateUser }) {
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Profile Image</Form.Label>
-        <Form.Control name="imageUrl" required onChange={handleChange} />
+        <Form.Control name="image" required onChange={handleChange} />
       </Form.Group>
       <Button variant="custom-btn" type="submit">
         Submit

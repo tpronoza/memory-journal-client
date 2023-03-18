@@ -2,19 +2,19 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ListForm from '../../../components/forms/ListForm';
 import { useAuth } from '../../../utils/context/authContext';
-import { getSingleList } from '../../../utils/data/listData';
+import { getListsById } from '../../../utils/data/listData';
 
 export default function EditPost() {
   const [editList, setEditList] = useState({});
   const router = useRouter();
-  const { listId } = router.query;
+  const { id } = router.query;
   const { user } = useAuth();
 
   useEffect(() => {
-    getSingleList(listId).then(setEditList);
-  }, [listId]);
+    getListsById(id).then(setEditList);
+  }, [user, router, id]);
 
   return (
-    <ListForm postObj={editList} user={user} />
+    <ListForm user={user} obj={editList} />
   );
 }

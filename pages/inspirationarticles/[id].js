@@ -24,7 +24,7 @@ export default function ViewInspirationArticleDetail() {
       </div>
       <div className="text-black ms-5 details">
         <h5>
-          {articleDetail.title}
+          {articleDetail.name}
         </h5>
         <p>Description: {articleDetail.description}</p>
       </div>

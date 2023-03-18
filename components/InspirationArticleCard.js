@@ -11,18 +11,17 @@ function InspirationArticleCard({ articleObj, onUpdate }) {
   const { user } = useAuth();
 
   const deleteThisArticle = () => {
-    if (window.confirm(`Delete ${articleObj.title}`)) {
-      deleteInspirationArticle(articleObj?.id).then(() => onUpdate());
+    if (window.confirm(`Delete ${articleObj.name}?`)) {
+      deleteInspirationArticle(articleObj.id).then(() => onUpdate());
     }
   };
-
   return (
     <Card className="card" style={{ width: '20rem', margin: '10px' }}>
       <Link href={`/inspirationarticles/${articleObj.id}`} passHref>
-        <Card.Img variant="top" src={articleObj.item_image} alt={articleObj.title} style={{ height: '400px' }} />
+        <Card.Img variant="top" src={articleObj.image} alt={articleObj.name} style={{ height: '400px' }} />
       </Link>
       <Card.Body>
-        <Card.Title>{articleObj.title}</Card.Title>
+        <Card.Title>{articleObj.name}</Card.Title>
         <p>{articleObj.description}</p>
         {/* <p>{articleObj.user.name}</p> */}
         {articleObj.user.uid === user.uid ? (
@@ -43,15 +42,18 @@ function InspirationArticleCard({ articleObj, onUpdate }) {
 InspirationArticleCard.propTypes = {
   articleObj: PropTypes.shape({
     id: PropTypes.number,
-    title: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
-    item_image: PropTypes.string,
+    image: PropTypes.string,
     user: PropTypes.shape({
       id: PropTypes.number,
-      // first_name: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
       uid: PropTypes.string,
     }),
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default InspirationArticleCard;

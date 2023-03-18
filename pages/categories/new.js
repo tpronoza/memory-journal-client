@@ -1,6 +1,6 @@
-import React from 'react';
-import CategoryForm from '../../components/forms/CategoryForm';
+// import React from 'react';
+// import CategoryForm from '../../components/forms/CategoryForm';
 
-export default function New() {
-  return <CategoryForm />;
-}
+// export default function New() {
+//   return <CategoryForm />;
+// }

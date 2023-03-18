@@ -1,11 +1,14 @@
 import { clientCredentials } from '../client';
 
 const getItems = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/items`, {
-    method: 'GET',
-    headers: {
-    },
-  })
+  fetch(`${clientCredentials.databaseURL}/items`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getItemsById = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/items/${id}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -18,7 +21,7 @@ const getSingleItem = (id) => new Promise((resolve, reject) => {
       resolve({
         id: data.id,
         description: data.description,
-        imageUrl: data.image_url,
+        image: data.image,
         user: data.user,
       });
     })
@@ -31,14 +34,15 @@ const createItem = (item) => new Promise((resolve, reject) => {
     body: JSON.stringify(item),
     headers: {
       'content-type': 'application/json',
+      Accept: 'application/json',
     },
   })
     .then((response) => resolve(response))
-    .catch((error) => reject(error));
+    .catch((reject));
 });
 
-const updateItem = (item) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/items/${item.id}`, {
+const updateItem = (item, id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/items/${id}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
@@ -61,6 +65,7 @@ const deleteItem = (id) => new Promise((resolve, reject) => {
 export {
   getItems,
   getSingleItem,
+  getItemsById,
   createItem,
   updateItem,
   deleteItem,

@@ -13,7 +13,7 @@ const getSingleUser = (userId, uid = '') => new Promise((resolve, reject) => {
         id: data.id,
         firstName: data.first_name,
         lastName: data.last_name,
-        imageUrl: data.image_url,
+        image: data.image,
         email: data.email,
       });
     })
@@ -42,8 +42,7 @@ const updateUser = (userObj, userId) => new Promise((resolve, reject) => {
   const newUserObj = {
     first_name: userObj.firstName,
     last_name: userObj.lastName,
-    bio: userObj.bio,
-    profile_image_url: userObj.profileImageUrl,
+    image: userObj.image,
     email: userObj.email,
     active: true,
   };

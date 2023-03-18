@@ -1,11 +1,20 @@
 import { clientCredentials } from '../client';
 
 const getLists = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/lists`, {
-    method: 'GET',
-    headers: {
-    },
-  })
+  fetch(`${clientCredentials.databaseURL}/lists`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getListsById = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/lists/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+const getItemList = () => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/listitems`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -17,11 +26,9 @@ const getSingleList = (id) => new Promise((resolve, reject) => {
     .then((data) => {
       resolve({
         id: data.id,
-        title: data.title,
-        imageUrl: data.image_url,
+        name: data.name,
+        image: data.image,
         description: data.description,
-        status: data.status,
-        category: data.category,
         user: data.user,
       });
     })
@@ -31,45 +38,69 @@ const getSingleList = (id) => new Promise((resolve, reject) => {
 const createList = (list) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/lists`, {
     method: 'POST',
-    body: JSON.stringify({
-      title: list.title,
-      image_url: list.imageUrl,
-      description: list.description,
-      status: list.status,
-      category: list.category,
-      user_id: list.userId,
-    }),
+    body: JSON.stringify(list),
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
   })
-    .then((response) => resolve(response))
-    .catch((error) => reject(error));
+    .then((resp) => resolve(resp.json()))
+    .catch(reject);
 });
 
-const updateList = (list) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/lists/${list.id}`, {
+// const updateList = (list, id) => new Promise((resolve, reject) => {
+//   fetch(`${clientCredentials.databaseURL}/lists/${id}`, {
+//     method: 'PUT',
+//     body: JSON.stringify({
+//       name: list.name,
+//       image: list.image,
+//       description: list.description,
+//       user: list.id,
+//     }),
+//     headers: {
+//       'content-type': 'application/json',
+//     },
+//   })
+//     .then((response) => resolve(response))
+//     .catch((error) => reject(error));
+// });
+
+const updateList = (list, id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/lists/${id}`, {
     method: 'PUT',
-    body: JSON.stringify({
-      title: list.title,
-      image_url: list.imageUrl,
-      description: list.description,
-      status: list.status,
-      category: list.category,
-      user_id: list.userId,
-    }),
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify(list),
   })
-    .then((response) => resolve(response))
-    .catch((error) => reject(error));
+    .then((response) => resolve(response.data))
+    .catch(reject);
 });
 
-const deleteList = (listId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/lists/${listId}`, {
+const deleteList = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/lists/${id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
+const viewItem = (id, item) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/list/${id}/watch`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(item),
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
+const dropItem = (id, itemId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/list/${id}/drop`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(itemId),
   })
     .then((response) => resolve(response))
     .catch((error) => reject(error));
@@ -78,7 +109,11 @@ const deleteList = (listId) => new Promise((resolve, reject) => {
 export {
   getLists,
   getSingleList,
+  getListsById,
+  getItemList,
   createList,
   updateList,
   deleteList,
+  viewItem,
+  dropItem,
 };

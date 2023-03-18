@@ -1,3 +1,22 @@
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../../utils/context/authContext';
+import { getSingleInspirationArticle } from '../../../utils/data/inspirationArticleData';
+import InspirationArticleForm from '../../../components/forms/InspirationArticleForm';
+
+export default function EditInspirationArticle() {
+  const [editInspirationArticle, setEditInspirationArticle] = useState({});
+  const router = useRouter();
+  const { user } = useAuth();
+  const { id } = router.query;
+
+  useEffect(() => {
+    getSingleInspirationArticle(id).then(setEditInspirationArticle);
+  }, [user, router, id]);
+
+  return (<InspirationArticleForm user={id} articleObj={editInspirationArticle} />);
+}
+
 // /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect, useState } from 'react';
 // import { useRouter } from 'next/router';
@@ -31,22 +50,3 @@
 //     </div>
 //   );
 // }
-
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../../../utils/context/authContext';
-import { getSingleInspirationArticle } from '../../../utils/data/inspirationArticleData';
-import InspirationArticleForm from '../../../components/forms/InspirationArticleForm';
-
-export default function EditInspirationArticle() {
-  const [editInspirationArticle, setEditInspirationArticle] = useState({});
-  const router = useRouter();
-  const { user } = useAuth();
-  const { id } = router.query;
-
-  useEffect(() => {
-    getSingleInspirationArticle(id).then(setEditInspirationArticle);
-  }, [user, router, id]);
-
-  return (<InspirationArticleForm user={id} articleObj={editInspirationArticle} />);
-}
