@@ -1,3 +1,38 @@
+import { useEffect, useState } from 'react';
+import InspirationArticleCard from '../components/InspirationArticleCard';
+import Search from '../components/Search';
+import { getInspirationArticles } from '../utils/data/inspirationArticleData';
+
+function Home() {
+  const [articles, setArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
+
+  const getAllTheArticles = () => {
+    getInspirationArticles().then((articleArray) => {
+      setArticles(articleArray);
+      setFilteredArticles(articleArray);
+    });
+  };
+
+  useEffect(() => {
+    getAllTheArticles();
+  }, []);
+
+  return (
+    <div>
+      {/* <h3>New Day is a New Beginning</h3> */}
+      <Search articles={articles} setFilteredArticles={setFilteredArticles} />
+      <section className="all-lists-container">
+        {filteredArticles?.map((article) => (
+          <InspirationArticleCard key={article.id} articleObj={article} />
+        ))}
+      </section>
+    </div>
+  );
+}
+
+export default Home;
+
 // // import { Button } from 'react-bootstrap';
 // // import { signOut } from '../utils/auth';
 // // import { useAuth } from '../utils/context/authContext';
@@ -59,46 +94,10 @@
 //       <ListSearch posts={lists} setFilteredPosts={setFilteredLists} />
 //       <div>
 //         {filteredLists.map((post) => (
-//           <ListCard key={post.id} createdOn={post.publication_date} title={post.title} content={post.content} imageUrl={post.image_url} userId={post.user_id} categoryId={post.category_id} id={post.id} onUpdate={getAllLists} />
+//           <ListCard key={post.id} createdOn={post.publication_date} title={post.name} content={post.content} image={post.image} userId={post.user_id} categoryId={post.category_id} id={post.id} onUpdate={getAllLists} />
 //         ))}
 //       </div>
 //     </div>
 //   );
 // }
-
 // export default Home;
-
-import { useEffect, useState } from 'react';
-import InspirationArticleCard from '../components/InspirationArticleCard';
-import Search from '../components/Search';
-import { getInspirationArticles } from '../utils/data/inspirationArticleData';
-
-function Home() {
-  const [articles, setArticles] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState([]);
-
-  const getAllTheArticles = () => {
-    getInspirationArticles().then((articleArray) => {
-      setArticles(articleArray);
-      setFilteredArticles(articleArray);
-    });
-  };
-
-  useEffect(() => {
-    getAllTheArticles();
-  }, []);
-
-  return (
-    <div>
-      {/* <h3>New Day is a New Beginning</h3> */}
-      <Search articles={articles} setFilteredArticles={setFilteredArticles} />
-      <section className="all-lists-container">
-        {filteredArticles?.map((article) => (
-          <InspirationArticleCard key={article.id} articleObj={article} />
-        ))}
-      </section>
-    </div>
-  );
-}
-
-export default Home;

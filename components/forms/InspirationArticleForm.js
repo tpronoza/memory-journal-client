@@ -9,9 +9,9 @@ import { createInspirationArticle, updateInspirationArticle } from '../../utils/
 
 const initialState = {
   id: 0,
-  title: '',
+  name: '',
   description: '',
-  item_image: '',
+  image: '',
 };
 
 function InspirationArticleForm({ articleObj }) {
@@ -26,14 +26,15 @@ function InspirationArticleForm({ articleObj }) {
   useEffect(() => {
     if (articleObj.id) {
       const editCollection = {
-        title: articleObj.title,
+        name: articleObj.name,
         description: articleObj.description,
-        item_image: articleObj.itemImage,
+        image: articleObj.image,
+
       };
       setFormInput(editCollection);
     }
   }, [articleObj]);
-  console.warn(articleObj);
+  // console.warn(articleObj);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,9 +47,9 @@ function InspirationArticleForm({ articleObj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const article = {
-      title: formInput.title,
+      name: formInput.name,
       description: formInput.description,
-      item_image: formInput.item_image,
+      image: formInput.image,
       user: user.id,
     };
     if (articleObj.id) {
@@ -62,13 +63,13 @@ function InspirationArticleForm({ articleObj }) {
     <Form onSubmit={handleSubmit}>
       <h2 className="text-black mt-5">{articleObj?.id ? 'Update' : 'Create'} Inspiration Article</h2>
       <FloatingLabel controlId="floatingInput1" label="Inspiration Article Title" className="mb-3">
-        <Form.Control type="text" placeholder="Enter Inspiration Article Title " name="title" value={formInput.title} onChange={handleChange} required />
+        <Form.Control type="text" placeholder="Enter Inspiration Article Title " name="name" value={formInput.name} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput2" label="Inspiration Article Description" className="mb-3">
         <Form.Control type="text" placeholder="Enter Inspiration Article Description" name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput3" label="Inspiration Artile Image" className="mb-3">
-        <Form.Control type="url" placeholder="Enter Inspiration Article Link" name="item_image" value={formInput.item_image} onChange={handleChange} required />
+        <Form.Control type="url" placeholder="Enter Inspiration Article Link" name="image" value={formInput.image} onChange={handleChange} required />
       </FloatingLabel>
 
       <Button type="submit" className="btn btn-secondary btn-sml copy-btn">{articleObj?.id ? 'Update' : 'Create'} Inspiration Article</Button>
@@ -83,9 +84,9 @@ InspirationArticleForm.propTypes = {
   }).isRequired,
   articleObj: PropTypes.shape({
     id: PropTypes.string,
-    title: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
-    itemImage: PropTypes.string,
+    image: PropTypes.string,
   }),
 };
 

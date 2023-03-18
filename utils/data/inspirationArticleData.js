@@ -24,9 +24,9 @@ const getSingleInspirationArticle = (id) => new Promise((resolve, reject) => {
     .then((data) => {
       resolve({
         id: data.id,
-        title: data.title,
+        name: data.name,
         description: data.description,
-        itemImage: data.item_image,
+        image: data.image,
         user: data.user,
       });
     })
@@ -57,8 +57,8 @@ const updateInspirationArticle = (inspirationArticle, id) => new Promise((resolv
     .catch((error) => reject(error));
 });
 
-const deleteInspirationArticle = (inspirationArticle) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/inspirationarticles/${inspirationArticle}`, {
+const deleteInspirationArticle = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/inspirationarticles/${id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   })

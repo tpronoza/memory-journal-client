@@ -21,10 +21,10 @@ const registerUser = (userInfo, user) => new Promise((resolve, reject) => {
   const userObj = {
     first_name: userInfo.firstName,
     last_name: userInfo.lastName,
-    image_url: userInfo.imageUrl,
+    image: userInfo.image,
     uid: user.uid,
   };
-  console.warn(userInfo);
+  // console.warn(userInfo);
   fetch(`${clientCredentials.databaseURL}/register`, {
     method: 'POST',
     body: JSON.stringify(userObj),

@@ -22,7 +22,7 @@ UserCard.propTypes = {
     id: PropTypes.number,
     first_name: PropTypes.string,
     last_name: PropTypes.string,
-    image_url: PropTypes.string,
+    image: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,
 };
