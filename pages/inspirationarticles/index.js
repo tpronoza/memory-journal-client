@@ -34,7 +34,7 @@ function Home() {
         <Search articles={articles} setFilteredArticles={setFilteredArticles} />
         <section className="all-lists-container">
           {filteredArticles?.map((article) => (
-            <InspirationArticleCard key={article.id} articleObj={article} />
+            <InspirationArticleCard key={article.id} articleObj={article} onUpdate={getAllTheArticles} />
           ))}
         </section>
       </div>

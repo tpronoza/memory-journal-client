@@ -4,7 +4,7 @@ import { Button, Card, Col } from 'react-bootstrap';
 import { deleteListItemData } from '../../utils/data/listItemData';
 import { getItems } from '../../utils/data/itemData';
 import { getListsById } from '../../utils/data/listData';
-// import DropDown from '../../components/Dropdown';
+import DropDown from '../../components/Dropdown';
 
 export default function ViewItemDetail() {
   const [listDetail, setListDetail] = useState({});
@@ -47,12 +47,12 @@ export default function ViewItemDetail() {
             {listDetail?.items?.map((item) => (
               <section key={`item--${item.id}`} className="items">
 
-                {/* <DropDown
+                <DropDown
                   id={item.id}
                   name={item.name}
                   image={item.image}
                   onUpdate={getContent}
-                /> */}
+                />
 
                 <Button key={item.joined_items[0].id} className="custom-btn" onClick={(click) => removeFromList(click, item.joined_items[0].id)}>
                   Remove from my List

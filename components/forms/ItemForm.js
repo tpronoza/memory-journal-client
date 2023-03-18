@@ -44,8 +44,8 @@ const ItemForm = ({ user, obj }) => {
       image: currentItem.image,
       user: user.id,
     };
-    if (obj.id) {
-      updateItem(item, item.id).then(() => router.push('/items'));
+    if (obj?.id) {
+      updateItem(item, obj.id).then(() => router.push('/items'));
     } else {
       createItem(item).then(() => router.push('/items'));
     }
