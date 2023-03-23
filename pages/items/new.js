@@ -6,7 +6,7 @@ export default function NewItem() {
   const { user } = useAuth();
   return (
     <div>
-      <h2>Post a Bandana</h2>
+      <h2>Create New Item</h2>
       <ItemForm user={user} />
     </div>
   );

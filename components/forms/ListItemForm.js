@@ -12,10 +12,7 @@ const initalState = {
     id: 0,
     name: '',
   },
-  list: {
-    id: 0,
-    name: '',
-  },
+  list: 0,
 };
 
 const ListItemForm = ({ obj }) => {
@@ -34,6 +31,7 @@ const ListItemForm = ({ obj }) => {
         ...prevState,
         [name]: value,
       }));
+      console.warn(currentList);
     } else {
       setCurrentList((prevState) => ({
         ...prevState,
@@ -44,7 +42,7 @@ const ListItemForm = ({ obj }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createListItemData(id, currentList.list).then(() => router.push('/lists'));
+    createListItemData(currentList.list, id).then(() => router.push('/lists'));
   };
 
   const filteredList = () => { listItem.filter((list) => list.item.id !== id); };

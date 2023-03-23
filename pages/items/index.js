@@ -22,6 +22,8 @@ function ItemsPage() {
         onClick={() => {
           router.push('/items/new');
         }}
+        size="lg"
+        variant="dark"
       >
         Post an Item
       </Button>
@@ -41,32 +43,5 @@ function ItemsPage() {
     </article>
   );
 }
-
-//   const [items, setItems] = useState([]);
-//   const [filteredItems, setFilteredItems] = useState([]);
-
-//   const getAllTheItems = () => {
-//     getItems().then((itemArray) => {
-//       setItems(itemArray);
-//       setFilteredItems(itemArray);
-//     });
-//   };
-
-//   useEffect(() => {
-//     getAllTheItems();
-//   }, []);
-
-//   return (
-//     <div>
-//       {/* <h3>New Day is a New Beginning</h3> */}
-//       <Search items={items} setFilteredItems={setFilteredItems} />
-//       <section className="all-lists-container">
-//         {filteredItems?.map((item) => (
-//           <ItemCard key={item.id} itemObj={item} />
-//         ))}
-//       </section>
-//     </div>
-//   );
-// }
 
 export default ItemsPage;
