@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import InspirationArticleCard from '../components/InspirationArticleCard';
-import Search from '../components/Search';
+// import Search from '../components/Search';
 import { getInspirationArticles } from '../utils/data/inspirationArticleData';
 
 function Home() {
-  const [articles, setArticles] = useState([]);
+  // const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
+  const router = useRouter();
 
   const getAllTheArticles = () => {
     getInspirationArticles().then((articleArray) => {
-      setArticles(articleArray);
+      // setArticles(articleArray);
       setFilteredArticles(articleArray);
     });
   };
@@ -19,15 +22,28 @@ function Home() {
   }, []);
 
   return (
-    <div>
-      {/* <h3>New Day is a New Beginning</h3> */}
-      <Search articles={articles} setFilteredArticles={setFilteredArticles} />
+    <article>
+      <Button
+        onClick={() => {
+          router.push('/inspirationarticles/new');
+        }}
+        size="lg"
+        variant="dark"
+      >
+        Add New Article
+      </Button>
       <section className="all-lists-container">
-        {filteredArticles?.map((article) => (
-          <InspirationArticleCard key={article.id} articleObj={article} />
-        ))}
+        <div className="d-flex flex-wrap">
+          {/* <h3>New Day is a New Beginning</h3> */}
+          {/* <Search articles={articles} setFilteredArticles={setFilteredArticles} /> */}
+
+          {filteredArticles?.map((article) => (
+            <InspirationArticleCard key={article.id} articleObj={article} />
+          ))}
+
+        </div>
       </section>
-    </div>
+    </article>
   );
 }
 

@@ -27,9 +27,9 @@ function InspirationArticleCard({ articleObj, onUpdate }) {
         {articleObj.user.uid === user.uid ? (
           <>
             <Link href={`/inspirationarticles/edit/${articleObj.id}`} passHref>
-              <Button className="edit">EDIT</Button>
+              <Button className="edit" size="sm" variant="dark">EDIT</Button>
             </Link>
-            <Button className="delete" onClick={deleteThisArticle}>
+            <Button className="delete" size="sm" variant="danger" onClick={deleteThisArticle}>
               DELETE
             </Button>
           </>

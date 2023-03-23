@@ -26,12 +26,12 @@ export default function ViewItemDetail() {
           {itemDetail.name}
         </h5>
         <p>Description: {itemDetail.description}</p>
+        <Link href={`/items/listitems/${id}`} passHref>
+          <Button size="sm" variant="info">
+            Add to List
+          </Button>
+        </Link>
       </div>
-      <Link href={`/items/listitems/${id}`} passHref>
-        <Button size="sm" variant="info">
-          Add to List
-        </Button>
-      </Link>
     </div>
 
   );
